@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>API Health Monitor | Care Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="glow"></div>
+    <div class="dots"></div>
+
+    <nav>
+      <div class="brand"><span class="logo">CG</span><span>Care Guide</span></div>
+      <div class="live"><i></i> Monitoring live</div>
+    </nav>
+
+    <div class="hero-body">
+      <div class="eyebrow"><span></span>Intelligent Alerting</div>
+      <h1>API Health Monitor</h1>
+      <p>Detects failing, slow and inconsistent patient and operational APIs, then explains each problem in plain language.</p>
+      <div class="actions">
+        <button id="sampleBtn">Load sample data</button>
+        <button id="customBtn" class="ghost">Submit custom JSON</button>
+        <button id="refreshBtn" class="ghost">Refresh</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+  <section class="stats" id="stats"></section>
+
+  <div class="layout">
+    <!-- LEFT: monitors -->
+    <aside class="panel monitors">
+      <div class="panel-head">
+        <h2>Monitored APIs</h2>
+      </div>
+
+      <div class="add-monitor">
+        <input id="monName" placeholder="API name (e.g. PatientDataAPI)" />
+        <input id="monUrl" placeholder="https://api.example.com/patients" />
+
+        <div class="dd" id="monIntervalDD" data-value="60">
+          <button type="button" class="dd-btn">
+            <span class="dd-label">Every 1 min</span>
+            <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <ul class="dd-menu">
+            <li data-value="30">Every 30s</li>
+            <li data-value="60" class="sel">Every 1 min</li>
+            <li data-value="300">Every 5 min</li>
+          </ul>
+        </div>
+
+        <button id="addMonBtn">Add &amp; check</button>
+      </div>
+
+      <div class="demo-links">Demo endpoints:
+        <a data-path="/mock/healthy">healthy</a>
+        <a data-path="/mock/slow">slow</a>
+        <a data-path="/mock/empty">empty</a>
+        <a data-path="/mock/error">error</a>
+        <a data-path="/mock/flaky">flaky</a>
+      </div>
+
+      <div id="monitorList" class="monitor-list"></div>
+    </aside>
+
+    <!-- RIGHT: alerts -->
+    <section class="panel feed">
+      <div class="panel-head">
+        <h2>Active alerts</h2>
+        <div class="filters">
+          <button class="chip active" data-filter="all">All</button>
+          <button class="chip" data-filter="critical">Critical</button>
+          <button class="chip" data-filter="high">High</button>
+          <button class="chip" data-filter="medium">Medium</button>
+        </div>
+      </div>
+
+      <section id="custom" class="custom hidden">
+        <textarea id="jsonInput" rows="8" placeholder='[{"api_name":"MyAPI","response_time_ms":4000,"status_code":200,"records_returned":0}]'></textarea>
+        <button id="sendBtn">Send to /monitor</button>
+      </section>
+
+      <div id="toast" class="toast hidden"></div>
+      <section id="alerts" class="alerts"></section>
+    </section>
+  </div>
+</main>
+
+  <footer>Care Guide · API Monitoring Assessment</footer>
+  <script src="app.js"></script>
+</body>
+</html>
